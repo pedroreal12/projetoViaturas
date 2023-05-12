@@ -1,342 +1,268 @@
 using System;
+using System.Collections.Generic;
 
-class Main
-{    
-    public static int Main()
-    {
-        return 0;
-    }
-
-    public static void list(string className)
-    {
-        if (className == 'Viatura')
-        {
-            for (int i = 0;i < viaturas.Lenght; i++)
-            {
-                if (viaturas[i].id != 0)
-                {
-                    Console.WriteLine('Veiculo numero: ', viaturas[i].id);
-                    Console.WriteLine('Marca: ', viaturas[i].marca);
-                    Console.WriteLine('Modelo: ', viaturas[i].modelo);
-                    Console.WriteLine('Matricula: ', viaturas[i].matricula);
-                    Console.WriteLine('Custo/Km: ', viaturas[i].custoKm);
-                    Console.WriteLine('Peso: ', viaturas[i].peso);
-                    Console.WriteLine('Altura: ', viaturas[i].altura);
-                    Console.WriteLine('Profundidade maxima: ', viaturas[i].profundidade);
-                    Console.WriteLine('');
-                }
-            }
-        } else if (className == 'Transporte')
-        {
-            for (int i = 0; i < transportes.Lenght; i++)
-            {
-                if (ttransportes[i].id != 0)
-                {
-                    Console.WriteLine('Transporte numero: ', transporte[i].id);
-                    Console.WriteLine('Data de Saida: ', transporte[i].dataSaida);
-                    Console.WriteLine('Duracao da Viagem: ', transportes[i].DuracaoViagem);
-                    Console.WriteLine('Internacional: ', transportes[i].internacional);
-                    Console.WriteLine('Custo Total da Viagem: ', transportes[i].custoTotalViagem);
-                    for (int i2 = 0; i2 < viaturas.Lenght; i2++)
-                    {
-                        if (transportes[i].idViatura == viaturas[i2].id)
-                        {
-                            Console.WriteLine('Viatura associada ao Transporte: ', viatura[i2].marca;
-                        }
-                    }
-                    Console.WriteLine('Destino Final: ', transportes[i].destino);
-                    Console.WriteLine('Encomendas associadas ao Transporte: ', transportes[i].idEncomenda);
-                    Console.WriteLine('');
-                }
-            }
-        } else if (className == 'Encomenda')
-        {
-            for (int i = 0; i < encomendas.Lenght; i++)
-            {
-                if (encomendas[i].id != 0)
-                {
-                    Console.WriteLine('Numero da Encomenda: ', encomendas[i].id);
-                    Console.WriteLine('Data de Entrega Prevista: ', encomendas[i].dataPrevista);
-                    Console.WriteLine('Peso: ', encomendas[i].peso);
-                    Console.WriteLine('Descricao da Encomenda: ', encomendas[i].descricao);
-                    Console.WriteLine('Largura da Encomenda: ', encomendas[i].largura);
-                    Console.WriteLine('Altura da Encomenda: ', encomendas[i].altura);
-                    Console.WriteLine('');
-                }
-            }
-        }
-    }
-
-    public static int remove(int id, string className)
-    { 
-        if (className == 'Viatura')
-        {
-            for (int i = 0; i < viaturas.Length; i++)
-            {
-                if (viaturas[i].id == id)
-                {
-                    viaturas.RemoveAt(i);
-                    return 1;
-                }
-            }
-
-        } else if (className == 'Transporte')
-        {
-            for (int i = 0; i < transportes.Length; i++)
-            {
-                if (transportes[i].id == id)
-                {
-                    transportes.RemoveAt(i);
-                    return 1;
-                }
-            }
-        } else if (className == 'Encomenda')
-        {
-            for (int i = 0; i < encomendas.Length; i++)
-            {
-                if (encomendas[i].id == id)
-                {
-                    encomendas.RemoveAt(i);
-                    return 1;
-                }
-            }
-        } else
-        {
-            return 0;
-        }
-    }
-
-    public static void mainMenu()
-    {
-        Console.WriteLine('');
-    }
-
-}
-
-namespace Viatura
+class Viatura
 {
-    class Viatura_Classe
+    public string Marca { get; set; }
+    public string Modelo { get; set; }
+    public string Matricula { get; set; }
+    public double CustoPorKm { get; set; }
+    public double PesoMax { get; set; }
+    public double AlturaMax { get; set; }
+    public double LarguraMax { get; set; }
+    public double ProfundidadeMax { get; set; }
+
+    public Viatura(string marca, string modelo, string matricula, double custoPorKm, double pesoMax, double alturaMax, double larguraMax, double profundidadeMax)
     {
-        public static void Main(string[] args)
-        {
-            var viaturas = new Viatura_Classe[];
-        }
+        Marca = marca;
+        Modelo = modelo;
+        Matricula = matricula;
+        CustoPorKm = custoPorKm;
+        PesoMax = pesoMax;
+        AlturaMax = alturaMax;
+        LarguraMax = larguraMax;
+        ProfundidadeMax = profundidadeMax;
+    }
 
-        public static void addViatuaras() 
-        {
-            Console.WriteLine("Adicionar viatura");
-            Console.WriteLine("Marca da viatura:");
-            string marca = Console.ReadLine();
-            Console.WriteLine("Modelo da viatura:");
-            string modelo = Console.ReadLine();
-            Console.WriteLine("Matricula da viatura:");
-            string matricula = Console.ReadLine();
-            Console.WriteLine("Custo/Km da viatura:");
-            double custo = Console.ReadLine();
-            Console.WriteLine("Peso da encomenda(Kg):");
-            double peso = Console.ReadLine();
-            Console.WriteLine("Altura da encomenda (cm):");
-            int altura = Console.ReadLine();
-            Console.WriteLine("Largura da encomenda(cm):");
-            int largura = Console.ReadLine();
-            Console.WriteLine("Profundidade maxima da encomenda(cm):");
-            double profundidade = Console.ReadLine(); 
-        }
-
-        public static void editViaturas(int id)
-        {
-            Console.WriteLine("Editar Viaturas");
-
-            for (int i = 0; i < viaturas.Lenght; i++)
-            {
-                if (viaturas[i].id == id)
-                {
-                    Console.WriteLine("Marca da viatura:");
-                    string marca = Console.ReadLine();
-                    Console.WriteLine("Modelo da viatura:");
-                    string modelo = Console.ReadLine();
-                    Console.WriteLine("Matricula da viatura:");
-                    string matricula = Console.ReadLine();
-                    Console.WriteLine("Custo/Km da viatura:");
-                    double custo = Console.ReadLine();
-                    Console.WriteLine("Peso da encomenda(Kg):");
-                    double peso = Console.ReadLine();
-                    Console.WriteLine("Altura da encomenda (cm):");
-                    int altura = Console.ReadLine();
-                    Console.WriteLine("Largura da encomenda(cm):");
-                    int largura = Console.ReadLine();
-                    Console.WriteLine("Profundidade maxima da encomenda(cm):");
-                    double profundidade = Console.ReadLine();
-                }
-            }
-        }
+    public override string ToString()
+    {
+        return $"Viatura: {Marca} {Modelo}\nMatrícula: {Matricula}\nCusto por km: {CustoPorKm}\n" +
+               $"Peso máximo: {PesoMax} Kg\nDimensões máximas (LxPxA): {LarguraMax}x{ProfundidadeMax}x{AlturaMax}\n";
     }
 }
 
-namespace Encomendas
+class Encomenda
 {
-    class Encomendas_Classe
+    public double Peso { get; set; }
+    public double Altura { get; set; }
+    public double Largura { get; set; }
+    public double Profundidade { get; set; }
+
+    public Encomenda(double peso, double altura, double largura, double profundidade)
     {
-        public static void Main(string[] args)
-        {
-            var encomendas = new Encomendas_Classe[];
-        }
+        Peso = peso;
+        Altura = altura;
+        Largura = largura;
+        Profundidade = profundidade;
+    }
 
-        public static void addEncomendas() 
-        {
-            Console.WriteLine("Adicionar encomenda:");
-            Console.WriteLine("Data prevista:");
-            string dataPrevista = Console.ReadLine();
-            Console.WriteLine("Peso da encomenda(Kg):");
-            string pesoEncomenda = Console.ReadLine();
-            Console.WriteLine("Descricao da encomenda:");
-            string descricao = Console.ReadLine();
-            Console.WriteLine("Largura da encomenda(cm):");
-            int largura = Console.ReadLine();
-            Console.WriteLine("Altura da encomenda(cm):");
-            int altura = Console.ReadLine();
-        }
-
-        public static void editEncomenda(int id)
-        {
-            Console.WriteLine("Editar Encomenda");
-
-            for(int i = 0; i < encomendas.Lenght; i++)
-            {
-                if (encomandas[i].id == id)
-                {
-                    Console.WriteLine("Data prevista:");
-                    string dataPrevista = Console.ReadLine();
-                    Console.WriteLine("Peso da encomenda(Kg):");
-                    string pesoEncomenda = Console.ReadLine();
-                    Console.WriteLine("Descricao da encomenda:");
-                    string descricao = Console.ReadLine();
-                    Console.WriteLine("Largura da encomenda(cm):");
-                    int largura = Console.ReadLine();
-                    Console.WriteLine("Altura da encomenda(cm):");
-                    int altura = Console.ReadLine();
-                }
-            }
-        }
+    public override string ToString()
+    {
+        return $"Encomenda: peso={Peso} kg, dimensões (LxPxA)={Largura}x{Profundidade}x{Altura}\n";
     }
 }
 
-namespace Transportes
+class Transporte
 {
-    class Transportes_Classe
+    public Viatura Viatura { get; set; }
+    public Encomenda Encomenda { get; set; }
+
+    public Transporte(Viatura viatura, Encomenda encomenda)
     {
-        public static void Main (string[] args)
-        {
-            var transportes = new Transportes_Classe();
-        }
+        Viatura = viatura;
+        Encomenda = encomenda;
+    }
 
-        public static void addTransporte()
-        {
-            Console.WriteLine("Adicionar Transporte");
-            Console.WriteLine("Data de saida:");
-            string dataSaida = Console.ReadLine();
-            Console.WriteLine("Duracao da viagem(minutos):");
-            int duracaoViagem = Console.ReadLine();
-            Console.WriteLine("Viagem internacional? (Sim/Não)");
-            char internacional = Console.ReadLine();
-            Console.WriteLine("Custo total da viagem(€):");
-            double custoViagem = Console.ReadLine();
-            Console.WriteLine("Viatura associada ao transporte(Id da viatura):");
-            int idViatura = Console.ReadLine();
-            Console.WriteLine("Destino Final:");
-            string destinoFinal = Console.ReadLine();
-            Console.WriteLine("Encomenda associada ao transporte(Id da encomenda)):");
-            int idEncomenda = Console.ReadLine();
-        }
-
-        public static void editTransportes(int id)
-        {
-            Console.WriteLine("Editar Transportes")
-            for (int i = 0; i < transportes.Lenght; i++)
-            {
-                if (transportes[i].id == id)
-                {
-                    Console.WriteLine("Data de saida:");
-                    string dataSaida = Console.ReadLine();
-                    Console.WriteLine("Duracao da viagem(minutos):");
-                    int duracaoViagem = Console.ReadLine();
-                    Console.WriteLine("Viagem internacional? (Sim/Não)");
-                    char internacional = Console.ReadLine();
-                    Console.WriteLine("Custo total da viagem(€):");
-                    double custoViagem = Console.ReadLine();
-                    Console.WriteLine("Viatura associada ao transporte(Id da viatura):");
-                    int idViatura = Console.ReadLine();
-                    Console.WriteLine("Destino Final:");
-                    string destinoFinal = Console.ReadLine();
-                    Console.WriteLine("Encomenda associada ao transporte(Id da encomenda)):");
-                    int idEncomenda = Console.ReadLine();
-                }
-            }
-        }
+    public override string ToString()
+    {
+        return $"Transporte:\n{Encomenda}\n{Viatura}\n";
     }
 }
 
-namespace Transportadora
+class Transportadora
 {
-    class Transportadora_Classe
+    static List<Viatura> viaturas = new List<Viatura>();
+    static List<Transporte> transportes = new List<Transporte>();
+
+    static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        while (true)
         {
-            var transportadora = new Transportadora_Classe();
-        }
+            Console.WriteLine("Selecione uma opção:");
+            Console.WriteLine("1 - Adicionar viatura");
+            Console.WriteLine("2 - Listar viaturas");
+            Console.WriteLine("3 - Remover viatura");
+            Console.WriteLine("4 - Registar transporte de encomenda");
+            Console.WriteLine("5 - Listar transportes");
+            Console.WriteLine("0 - Sair");
 
-        public static void addTransportadora()
-        {
-            Console.WriteLine("Adicionar Transportadora");
-            Console.WriteLine("Nome:");
-            string nomeTransportadora = Console.ReadLine();
-            Console.WriteLine("Localizcao da sede:");
-            string sedeTransportadora = Console.ReadLine();
-        }
-
-        public static void editTransportadora(int id)
-        {
-            Console.WriteLine("Editar Transportadora")
-            for (int i = 0; i < transportadora.Lenght; i++)
+            string opcaoStr = Console.ReadLine();
+            int opcao;
+            if (!int.TryParse(opcaoStr, out opcao))
             {
-                if (transportadora[i].id == id)
-                {
-                    Console.WriteLine("Adicionar Transportadora");
-                    Console.WriteLine("Nome:");
-                    string nomeTransportadora = Console.ReadLine();
-                    Console.WriteLine("Localizcao da sede:");
-                    string sedeTransportadora = Console.ReadLine();
-                }
+                Console.WriteLine("Opção inválida. Tente novamente.");
+                continue;
             }
+
+            Console.Clear();
+
+            switch (opcao)
+            {
+                case 1:
+                    AdicionarViatura();
+                    break;
+                case 2:
+                    ListarViaturas();
+                    break;
+                case 3:
+                    RemoverViatura();
+                    break;
+                case 4:
+                    RegistarTransporte();
+                    break;
+                case 5:
+                    ListarTransportes();
+                    break;
+                case 0:
+                    return;
+                default:
+                    Console.WriteLine("Opção inválida. Tente novamente.");
+                    break;
+            }
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
+    static void AdicionarViatura()
+    {
+        Console.WriteLine("Adicionar Viatura");
+        Console.WriteLine("Marca: ");
+        string marca = Console.ReadLine();
+        Console.WriteLine("Modelo: ");
+        string modelo = Console.ReadLine();
+        Console.WriteLine("Matrícula: ");
+        string matricula = Console.ReadLine();
+        Console.WriteLine("Custo por km: ");
+        double custoPorKm;
+        if (!double.TryParse(Console.ReadLine(), out custoPorKm))
+        {
+            Console.WriteLine("Valor inválido para custo por km. Viatura não adicionada.");
+            return;
+        }
+        Console.WriteLine("Peso máximo(Kg): ");
+        double pesoMax;
+        if (!double.TryParse(Console.ReadLine(), out pesoMax))
+        {
+            Console.WriteLine("Valor inválido para peso máximo. Viatura não adicionada.");
+            return;
+        }
+        Console.WriteLine("Altura máxima(m): ");
+        double alturaMax;
+        if (!double.TryParse(Console.ReadLine(), out alturaMax))
+        {
+            Console.WriteLine("Valor inválido para altura máxima. Viatura não adicionada.");
+            return;
+        }
+        Console.WriteLine("Largura máxima(m): ");
+        double larguraMax;
+        if (!double.TryParse(Console.ReadLine(), out larguraMax))
+        {
+            Console.WriteLine("Valor inválido para largura máxima. Viatura não adicionada.");
+            return;
+        }
+        Console.WriteLine("Profundidade máxima(m): ");
+        double profundidadeMax;
+        if (!double.TryParse(Console.ReadLine(), out profundidadeMax))
+        {
+            Console.WriteLine("Valor inválido para profundidade máxima. Viatura não adicionada.");
+            return;
+        }
+
+        Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax);
+        viaturas.Add(viatura);
+        Console.WriteLine("Viatura adicionada com sucesso.");
+    }
+
+    static void ListarViaturas()
+    {
+        Console.WriteLine("Lista de Viaturas:");
+        foreach (Viatura viatura in viaturas)
+        {
+            Console.WriteLine(viatura);
+        }
+    }
+
+    static void RemoverViatura()
+    {
+        Console.WriteLine("Remover Viatura");
+        Console.WriteLine("Matrícula da viatura a remover: ");
+        string matricula = Console.ReadLine();
+
+        Viatura viaturaRemover = viaturas.Find(v => v.Matricula == matricula);
+        if (viaturaRemover != null)
+        {
+            viaturas.Remove(viaturaRemover);
+            Console.WriteLine("Viatura removida com sucesso.");
+        }
+        else
+        {
+            Console.WriteLine("Viatura não encontrada.");
+        }
+    }
+
+    static void RegistarTransporte()
+    {
+        Console.WriteLine("Registar Transporte");
+        Console.WriteLine("Matrícula da viatura: ");
+        string matricula = Console.ReadLine();
+
+        Viatura viatura = viaturas.Find(v => v.Matricula == matricula);
+        if (viatura == null)
+        {
+            Console.WriteLine("Viatura não encontrada.");
+            return;
+        }
+
+        Console.WriteLine("Peso da encomcomenda(Kg): ");
+        double peso;
+        if (!double.TryParse(Console.ReadLine(), out peso))
+        {
+            Console.WriteLine("Valor inválido para o peso da encomenda. O transporte não foi registado.");
+            return;
+        }
+        Console.WriteLine("Altura da encomenda(m): ");
+        double altura;
+        if (!double.TryParse(Console.ReadLine(), out altura))
+        {
+            Console.WriteLine("Valor inválido para a altura da encomenda. O transporte não foi registado.");
+            return;
+        }
+        Console.WriteLine("Largura da encomenda(m): ");
+        double largura;
+        if (!double.TryParse(Console.ReadLine(), out largura))
+        {
+            Console.WriteLine("Valor inválido para a largura da encomenda. O transporte não foi registado.");
+            return;
+        }
+        Console.WriteLine("Profundidade da encomenda(m): ");
+        double profundidade;
+        if (!double.TryParse(Console.ReadLine(), out profundidade))
+        {
+            Console.WriteLine("Valor inválido para a profundidade da encomenda. O transporte não foi registado.");
+            return;
+        }
+        Encomenda encomenda = new Encomenda(peso, altura, largura, profundidade);
+
+        if (encomenda.Peso > viatura.PesoMax || encomenda.Altura > viatura.AlturaMax ||
+            encomenda.Largura > viatura.LarguraMax || encomenda.Profundidade > viatura.ProfundidadeMax)
+        {
+            Console.WriteLine("A encomenda excede as dimensões ou peso máximo da viatura. O transporte não foi registado.");
+            return;
+        }
+
+        Transporte transporte = new Transporte(viatura, encomenda);
+        transportes.Add(transporte);
+        Console.WriteLine("Transporte registado com sucesso.");
+    }
+
+    static void ListarTransportes()
+    {
+        Console.WriteLine("Lista de Transportes:");
+        foreach (Transporte transporte in transportes)
+        {
+            Console.WriteLine(transporte);
+        }
+    }
+
 }
-
-
-/*
-
-while (true) 
-{
-menu();
-int option = InputValidation.ValidateIntBetween("Opcao: ",0,2);
-
-switch (option)
-{
-case 1:
-    viaturas[0] = new viaturas(); // Menu Viaturas
-    break;
-
-case 2:
-    //Menu Encomendas
-
-case3: 
-    //Menu Transportes
-
-case
-    
-
-case 0:
-    return;
-}
-}
- */
