@@ -46,6 +46,21 @@ namespace projetoViaturas
         }
     }
 
+    public class TransportesCounter
+    {
+        static int count = 0;
+
+        public TransportesCounter()
+        {
+            count++;
+        }
+
+        public static int TotalTransportes()
+        {
+            return count;
+        }
+    }
+
     class Encomenda
     {
         public double Peso { get; set; }
@@ -71,11 +86,13 @@ namespace projetoViaturas
     {
         public Viatura Viatura { get; set; }
         public Encomenda Encomenda { get; set; }
+        public int Id { get; set; }
 
-        public Transporte(Viatura viatura, Encomenda encomenda)
+        public Transporte(Viatura viatura, Encomenda encomenda, int id)
         {
             Viatura = viatura;
             Encomenda = encomenda;
+            Id = id;
         }
 
         public void editarTransporte(double novoPeso, double novaAltura, double novaLargura, double novaProfundidade)
@@ -98,7 +115,7 @@ namespace projetoViaturas
 
         public override string ToString()
         {
-            return $"Transporte:\n{Encomenda}\n{Viatura}\n";
+            return $"Transporte:\nId: {Id}\n{Encomenda}\n{Viatura}\n";
         }
     }
 
@@ -319,6 +336,7 @@ namespace projetoViaturas
             Console.WriteLine("Registar Transporte");
             Console.WriteLine("Matrícula da viatura: ");
             string matricula = Console.ReadLine();
+            int id = 0;
 
             Viatura viatura = viaturas.Find(v => v.Matricula == matricula);
             if (viatura == null)
@@ -364,7 +382,9 @@ namespace projetoViaturas
                 return;
             }
 
-            Transporte transporte = new Transporte(viatura, encomenda);
+            id = TransportesCounter.TotalTransportes() + 1;
+
+            Transporte transporte = new Transporte(viatura, encomenda, id);
             transportes.Add(transporte);
             Console.WriteLine("Transporte registado com sucesso.");
         }
@@ -381,10 +401,16 @@ namespace projetoViaturas
         static void editarTransporte()
         {
             Console.WriteLine("Editar Transporte");
-            Console.WriteLine("Matrícula da viatura:");
-            string matricula = Console.ReadLine();
+            Console.WriteLine("Id do Transporte:");
+            int id = 0;
 
-            Transporte transporteEditar = transportes.Find(t => t.Viatura.Matricula == matricula);
+            if (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Valor inválido para custo por Id. Transporte não encontrado.");
+                return;
+            }
+
+            Transporte transporteEditar = transportes.Find(t => t.Id == id);
             if (transporteEditar == null)
             {
                 Console.WriteLine("Transporte não encontrado.");
@@ -429,10 +455,16 @@ namespace projetoViaturas
         static void removerTransporte()
         {
             Console.WriteLine("Remover Transporte");
-            Console.WriteLine("Matrícula da viatura: ");
-            string matricula = Console.ReadLine();
+            Console.WriteLine("Id do Transporte: ");
+            int id = 0;
 
-            Transporte transporteRemover = transportes.Find(t => t.Viatura.Matricula == matricula);
+            if (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Valor inválido para custo por Id. Transporte não encontrado.");
+                return;
+            }
+
+            Transporte transporteRemover = transportes.Find(t => t.Id == id);
             if (transporteRemover != null)
             {
                 transportes.Remove(transporteRemover);
