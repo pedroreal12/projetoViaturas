@@ -46,21 +46,6 @@ namespace projetoViaturas
         }
     }
 
-    public class TransportesCounter
-    {
-        static int count = 0;
-
-        public TransportesCounter()
-        {
-            count++;
-        }
-
-        public static int TotalTransportes()
-        {
-            return count;
-        }
-    }
-
     class Encomenda
     {
         public double Peso { get; set; }
@@ -87,12 +72,19 @@ namespace projetoViaturas
         public Viatura Viatura { get; set; }
         public Encomenda Encomenda { get; set; }
         public int Id { get; set; }
+        public static int count = 0;
 
         public Transporte(Viatura viatura, Encomenda encomenda, int id)
         {
             Viatura = viatura;
             Encomenda = encomenda;
             Id = id;
+            count++;
+        }
+
+        public static int getCountTransportes()
+        {
+            return count;
         }
 
         public void editarTransporte(double novoPeso, double novaAltura, double novaLargura, double novaProfundidade)
@@ -382,7 +374,7 @@ namespace projetoViaturas
                 return;
             }
 
-            id = TransportesCounter.TotalTransportes() + 1;
+            id = Transporte.getCountTransportes() + 1;
 
             Transporte transporte = new Transporte(viatura, encomenda, id);
             transportes.Add(transporte);
