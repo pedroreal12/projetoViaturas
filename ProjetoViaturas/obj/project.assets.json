@@ -8,23 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Pedro Real\\.nuget\\packages\\": {},
+    "C:\\Users\\joao6\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pedro Real\\Documents\\ProjetoViaturas\\ProjetoViaturas\\ProjetoViaturas\\ProjetoViaturas.csproj",
+      "projectUniqueName": "C:\\Users\\joao6\\OneDrive\\Ambiente de Trabalho\\projetoViaturas\\ProjetoViaturas\\ProjetoViaturas.csproj",
       "projectName": "ProjetoViaturas",
-      "projectPath": "C:\\Users\\Pedro Real\\Documents\\ProjetoViaturas\\ProjetoViaturas\\ProjetoViaturas\\ProjetoViaturas.csproj",
-      "packagesPath": "C:\\Users\\Pedro Real\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pedro Real\\Documents\\ProjetoViaturas\\ProjetoViaturas\\ProjetoViaturas\\obj\\",
+      "projectPath": "C:\\Users\\joao6\\OneDrive\\Ambiente de Trabalho\\projetoViaturas\\ProjetoViaturas\\ProjetoViaturas.csproj",
+      "packagesPath": "C:\\Users\\joao6\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\joao6\\OneDrive\\Ambiente de Trabalho\\projetoViaturas\\ProjetoViaturas\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Pedro Real\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\joao6\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
