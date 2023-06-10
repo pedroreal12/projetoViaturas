@@ -14,8 +14,9 @@ namespace projetoViaturas
         public double AlturaMax { get; set; }
         public double LarguraMax { get; set; }
         public double ProfundidadeMax { get; set; }
+        public string TipoTransporte { get; set; }
 
-        public Viatura(string marca, string modelo, string matricula, double custoPorKm, double pesoMax, double alturaMax, double larguraMax, double profundidadeMax)
+        public Viatura(string marca, string modelo, string matricula, double custoPorKm, double pesoMax, double alturaMax, double larguraMax, double profundidadeMax, string tipoTransporte)
         {
             Marca = marca;
             Modelo = modelo;
@@ -25,10 +26,11 @@ namespace projetoViaturas
             AlturaMax = alturaMax;
             LarguraMax = larguraMax;
             ProfundidadeMax = profundidadeMax;
+            TipoTransporte = tipoTransporte;
         }
 
         public void editarViatura(string novaMarca, string novoModelo, string novaMatricula, double novoCustoPorKm,
-            double novoPesoMax, double novaAlturaMax, double novaLarguraMax, double novaProfundidadeMax)
+            double novoPesoMax, double novaAlturaMax, double novaLarguraMax, double novaProfundidadeMax, string novoTipoTransporte)
         {
             Marca = novaMarca;
             Modelo = novoModelo;
@@ -38,6 +40,7 @@ namespace projetoViaturas
             AlturaMax = novaAlturaMax;
             LarguraMax = novaLarguraMax;
             ProfundidadeMax = novaProfundidadeMax;
+            TipoTransporte = novoTipoTransporte;
         }
 
         public override string ToString()
@@ -56,7 +59,7 @@ namespace projetoViaturas
         public double Comprimento { get; set; }
 
         public ViaturaAerea(string marca, string modelo, string matricula, double custoPorKm, double altura, double largura, double profundidade, double pesoMaximoCarga, string tipoTransporte, string numeroRegistro, double envergadura, double comprimento)
-            : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, tipoTransporte)
+            : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, novoTipoTransporte)
         {
             NumeroRegistro = numeroRegistro;
             Envergadura = envergadura;
@@ -268,7 +271,7 @@ namespace projetoViaturas
                 return;
             }
 
-            Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax);
+            Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax, tipoTransporte);
             viaturas.Add(viatura);
             Console.WriteLine("Viatura adicionada com sucesso.");
         }
@@ -335,7 +338,7 @@ namespace projetoViaturas
 
                 // chama o método editarViatura na instância correspondente
                 viaturaEditar.editarViatura(novaMarca, novoModelo, novaMatricula, novoCustoPorKm,
-                    novoPesoMax, novaAlturaMax, novaLarguraMax, novaProfundidadeMax);
+                    novoPesoMax, novaAlturaMax, novaLarguraMax, novaProfundidadeMax, novoTipoTransporte);
 
                 Console.WriteLine("Viatura atualizada com sucesso.");
             }
