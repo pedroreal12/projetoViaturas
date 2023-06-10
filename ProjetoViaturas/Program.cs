@@ -7,6 +7,7 @@ namespace projetoViaturas
     {
         public string Marca { get; set; }
         public string Modelo { get; set; }
+        public string TipoViatura { get; set; }
         public string Matricula { get; set; }
         public double CustoPorKm { get; set; }
         public double PesoMax { get; set; }
@@ -46,7 +47,46 @@ namespace projetoViaturas
         }
     }
 
-    class Encomenda
+
+
+    class ViaturaAerea : Viatura
+    {
+        public string NumeroRegistro { get; set; }
+        public double Envergadura { get; set; }
+        public double Comprimento { get; set; }
+
+        public ViaturaAerea(string marca, string modelo, string matricula, double custoPorKm, double altura, double largura, double profundidade, double pesoMaximoCarga, string tipoTransporte, string numeroRegistro, double envergadura, double comprimento)
+            : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, tipoTransporte)
+        {
+            NumeroRegistro = numeroRegistro;
+            Envergadura = envergadura;
+            Comprimento = comprimento;
+        }
+
+        class ViaturaAquatica : Viatura
+        {
+            public string NumeroRegistro { get; set; }
+            public string CodigoEmbarcacao { get; set; }
+            public double Boca { get; set; }
+            public double Calado { get; set; }
+            public double Comprimento { get; set; }
+
+            public ViaturaAquatica(string marca, string modelo, string matricula, double custoPorKm, double altura, double largura, double profundidade, double pesoMaximoCarga, string tipoTransporte, string numeroRegistro, string codigoEmbarcacao, double boca, double calado, double comprimento)
+                : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, tipoTransporte)
+            {
+                NumeroRegistro = numeroRegistro;
+                CodigoEmbarcacao = codigoEmbarcacao;
+                Boca = boca;
+                Calado = calado;
+                Comprimento = comprimento;
+            }
+        }
+    }
+
+
+
+
+        class Encomenda
     {
         public double Peso { get; set; }
         public double Altura { get; set; }
