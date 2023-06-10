@@ -50,8 +50,6 @@ namespace projetoViaturas
         }
     }
 
-
-
     class ViaturaAerea : Viatura
     {
         public string NumeroRegistro { get; set; }
@@ -59,7 +57,7 @@ namespace projetoViaturas
         public double Comprimento { get; set; }
 
         public ViaturaAerea(string marca, string modelo, string matricula, double custoPorKm, double altura, double largura, double profundidade, double pesoMaximoCarga, string tipoTransporte, string numeroRegistro, double envergadura, double comprimento)
-            : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, novoTipoTransporte)
+            : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, tipoTransporte)
         {
             NumeroRegistro = numeroRegistro;
             Envergadura = envergadura;
@@ -228,7 +226,22 @@ namespace projetoViaturas
         }
         static void adicionarViatura()
         {
+            string[] tipoTransportes = { 'Aquático', 'Aéreo', 'Terrestre' };
             Console.WriteLine("Adicionar Viatura");
+            int optionTransporte;
+            for (int i = 0; i < tipoTransportes.Length; i++)
+            {
+                Console.WriteLine($"ID {i}: {tipoTransportes[i]}");
+            }
+
+            Console.WriteLine("Introduza o ID para o tipo de transporte que esta viatura irá realizar, tendo em conta a tabela acima: ");
+
+            if (!int.TryParse(Console.ReadLine(), out optionTransporte))
+            {
+                Console.WriteLine("Valor inválido para o tipo de viatura. Viatura não adicionada.");
+                return;
+            }
+
             Console.WriteLine("Marca: ");
             string marca = Console.ReadLine();
             Console.WriteLine("Modelo: ");
@@ -270,10 +283,109 @@ namespace projetoViaturas
                 Console.WriteLine("Valor inválido para profundidade máxima. Viatura não adicionada.");
                 return;
             }
+            //Tipo de Transporte Aquático
+            if (optionTransporte == 0)
+            {
+                Console.WriteLine("Nome da embarcação: ");
+                string nomeEmbarcacao;
+                Console.ReadLine(nomeEmbarcacao);
 
-            Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax, tipoTransporte);
-            viaturas.Add(viatura);
-            Console.WriteLine("Viatura adicionada com sucesso.");
+                Console.WriteLine("Número de registo da embarcação: ");
+
+                int numeroRegistoEmbarcacao;
+
+                if (!int.TryParse(Console.ReadLine(), out numeroRegistoEmbarcacao))
+                {
+                    Console.WriteLine("Numero de registo de embarcação inválido. Viatura não adicionada.");
+                }
+
+                Console.WriteLine("Tipo de embarcação (EX: Caravela, Navio, Bote etc...): ");
+                string tipoEmbarcacao;
+                Console.ReadLine(tipoEmbarcacao);
+
+                Console.WriteLine("Código da embarcação: ");
+                int codigoEmbarcacao;
+                if (!int.TryParse(Console.ReadLine(), out codigoEmbarcacao))
+                {
+                    Console.WriteLine("Código de embarcação inválido. Viatura não adicionada.");
+                }
+
+                Console.WriteLine("Boca da embarcação(M): ");
+
+                double bocaEmbarcacao;
+                if (!double.TryParse(Console.ReadLine(), out bocaEmbarcacao))
+                {
+                    Console.WriteLine("Boca de embarcação inválida. Viatura não adicionada.");
+                }
+
+                Console.WriteLine("Calado da embarcação(M)");
+
+                double caladoEmbarcacao;
+                if (!double.TryParse(Console.ReadLine(), out caladoEmbarcacao))
+                {
+                    Console.WriteLine("Calado de embarcação inválido. Viatura não adicionada.");
+                }
+
+                Console.WriteLine("Comprimento da embarcação(M)");
+
+                double comprimentoEmbarcacao;
+                if (!double.TryParse(Console.ReadLine(), out comprimentoEmbarcacao))
+                {
+                    Console.WriteLine("Comprimento de embarcação inválido. Viatura não adicionada: ");
+                }
+
+            }
+            //Tipo de transporte Aereo
+            else if (optionTransporte == 1)
+            {
+                Console.WriteLine("Número de registo da aeronave: ");
+
+                int codigoAeronave;
+                if (!int.TryParse(Console.ReadLine(), out codigoEmbarcacao))
+                {
+                    Console.WriteLine("Número de registo de aeronave inválido. Viatura não adicionada: ");
+                }
+
+                Console.WriteLine("Envergadura da aeronave(M): ");
+
+                double envergaduraAeronave;
+                if (!double.TryParse(Console.ReadLine(), out envergaduraAeronave))
+                {
+                    Console.WriteLine("Envergadura de aeronave inválida. Viatura não adicionada: ");
+                }
+
+
+                Console.WriteLine("Altura da aeronave(M): ");
+
+                double alturaAeronave;
+                if (!double.TryParse(Console.ReadLine(), out alturaAeronave))
+                {
+                    Console.WriteLine("Altura de aeronave inválida. Viatura não adicionada: ");
+                }
+
+                Console.WriteLine("Comprimento da aeronave (M): ");
+
+                double comprimentoAeronave;
+                if (!double.TryParse(Console.ReadLine(), out comprimentoAeronave))
+                {
+                    Console.WriteLine("Comprimento de aeronave inválido. Viatura não adicionada: ");
+                }
+
+            }
+            //Transporte terrestre
+            else if (optionTransporte == 2)
+            {
+                Console.WriteLine("Tipo de Transporte (EX: Bicicleta, Carro, Camião etc...): ");
+                string tipoViatura;
+                Console.ReadLine(tipoViatura);
+                Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax, tipoViatura);
+                viaturas.Add(viatura);
+                Console.WriteLine("Viatura adicionada com sucesso.");
+            } else 
+            {
+                Console.WriteLine("O tipo de transporte introduzido é inválido. Viatura não adicionada");
+                return;
+            }
         }
 
         static void listarViaturas()
