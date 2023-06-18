@@ -16,7 +16,7 @@ namespace projetoViaturas
         public double ProfundidadeMax { get; set; }
         public string TipoTransporte { get; set; }
 
-        public Viatura(string marca, string modelo, string matricula, double custoPorKm, double pesoMax, double alturaMax, double larguraMax, double profundidadeMax, string tipoTransporte)
+        public Viatura(string marca, string modelo, string matricula, double custoPorKm, double pesoMax, double alturaMax, double larguraMax, double profundidadeMax, string tipoTransporte, string tipoViatura)
         {
             Marca = marca;
             Modelo = modelo;
@@ -26,6 +26,7 @@ namespace projetoViaturas
             AlturaMax = alturaMax;
             LarguraMax = larguraMax;
             ProfundidadeMax = profundidadeMax;
+            TipoViatura = tipoViatura;
             TipoTransporte = tipoTransporte;
         }
 
@@ -57,7 +58,7 @@ namespace projetoViaturas
         public double Comprimento { get; set; }
 
         public ViaturaAerea(string marca, string modelo, string matricula, double custoPorKm, double altura, double largura, double profundidade, double pesoMaximoCarga, string tipoTransporte, string numeroRegistro, double envergadura, double comprimento)
-            : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, tipoTransporte)
+            : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, tipoTransporte, tipoTransporte)
         {
             NumeroRegistro = numeroRegistro;
             Envergadura = envergadura;
@@ -73,7 +74,7 @@ namespace projetoViaturas
             public double Comprimento { get; set; }
 
             public ViaturaAquatica(string marca, string modelo, string matricula, double custoPorKm, double altura, double largura, double profundidade, double pesoMaximoCarga, string tipoTransporte, string numeroRegistro, string codigoEmbarcacao, double boca, double calado, double comprimento)
-                : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, tipoTransporte)
+                : base(marca, modelo, matricula, custoPorKm, altura, largura, profundidade, pesoMaximoCarga, tipoTransporte, tipoTransporte)
             {
                 NumeroRegistro = numeroRegistro;
                 CodigoEmbarcacao = codigoEmbarcacao;
@@ -83,9 +84,6 @@ namespace projetoViaturas
             }
         }
     }
-
-
-
 
         class Encomenda
     {
@@ -226,7 +224,7 @@ namespace projetoViaturas
         }
         static void adicionarViatura()
         {
-            string[] tipoTransportes = { 'Aquático', 'Aéreo', 'Terrestre' };
+            string[] tipoTransportes = { "Aquático", "Aéreo", "Terrestre" };
             Console.WriteLine("Adicionar Viatura");
             int optionTransporte;
             for (int i = 0; i < tipoTransportes.Length; i++)
@@ -238,7 +236,7 @@ namespace projetoViaturas
 
             if (!int.TryParse(Console.ReadLine(), out optionTransporte))
             {
-                Console.WriteLine("Valor inválido para o tipo de viatura. Viatura não adicionada.");
+                Console.WriteLine("Valor inválido para o tipo de transporte. Viatura não adicionada.");
                 return;
             }
 
@@ -288,7 +286,7 @@ namespace projetoViaturas
             {
                 Console.WriteLine("Nome da embarcação: ");
                 string nomeEmbarcacao;
-                Console.ReadLine(nomeEmbarcacao);
+                nomeEmbarcacao = Console.ReadLine();
 
                 Console.WriteLine("Número de registo da embarcação: ");
 
@@ -301,7 +299,7 @@ namespace projetoViaturas
 
                 Console.WriteLine("Tipo de embarcação (EX: Caravela, Navio, Bote etc...): ");
                 string tipoEmbarcacao;
-                Console.ReadLine(tipoEmbarcacao);
+                tipoEmbarcacao = Console.ReadLine();
 
                 Console.WriteLine("Código da embarcação: ");
                 int codigoEmbarcacao;
@@ -341,7 +339,7 @@ namespace projetoViaturas
                 Console.WriteLine("Número de registo da aeronave: ");
 
                 int codigoAeronave;
-                if (!int.TryParse(Console.ReadLine(), out codigoEmbarcacao))
+                if (!int.TryParse(Console.ReadLine(), out codigoAeronave))
                 {
                     Console.WriteLine("Número de registo de aeronave inválido. Viatura não adicionada: ");
                 }
@@ -371,14 +369,20 @@ namespace projetoViaturas
                     Console.WriteLine("Comprimento de aeronave inválido. Viatura não adicionada: ");
                 }
 
+                Console.WriteLine("Novo Tipo de Aeronave (EX: Jato, Avião, Helicóptero, etc..): ");
+                string tipoAeronave = Console.ReadLine();
+
+                Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax, tipoAeronave, tipoTransportes[optionTransporte]);
+                viaturas.Add(viatura);
+
             }
             //Transporte terrestre
             else if (optionTransporte == 2)
             {
-                Console.WriteLine("Tipo de Transporte (EX: Bicicleta, Carro, Camião etc...): ");
+                Console.WriteLine("Tipo de Viatura (EX: Bicicleta, Carro, Camião etc...): ");
                 string tipoViatura;
-                Console.ReadLine(tipoViatura);
-                Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax, tipoViatura);
+                tipoViatura = Console.ReadLine();
+                Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax, tipoViatura, tipoTransportes[optionTransporte]);
                 viaturas.Add(viatura);
                 Console.WriteLine("Viatura adicionada com sucesso.");
             } else 
@@ -399,64 +403,174 @@ namespace projetoViaturas
 
         static void editarViatura()
         {
+            string[] tipoTransportes = { "Aquático", "Aéreo", "Terrestre" };
             Console.WriteLine("Editar Viatura");
-            Console.WriteLine("Matrícula da viatura:");
-            string matricula = Console.ReadLine();
-
-            Viatura viaturaEditar = viaturas.Find(v => v.Matricula == matricula);
-            if (viaturaEditar != null)
+            int optionTransporte;
+            for (int i = 0; i < tipoTransportes.Length; i++)
             {
-                Console.WriteLine("Nova marca: ");
-                string novaMarca = Console.ReadLine();
-                Console.WriteLine("Novo modelo: ");
-                string novoModelo = Console.ReadLine();
-                Console.WriteLine("Nova matrícula: ");
-                string novaMatricula = Console.ReadLine();
-                Console.WriteLine("Novo custo por Km: ");
-                double novoCustoPorKm;
-                if (!double.TryParse(Console.ReadLine(), out novoCustoPorKm))
+                Console.WriteLine($"ID {i}: {tipoTransportes[i]}");
+            }
+
+            Console.WriteLine("Introduza o novo ID para o tipo de transporte que esta viatura irá realizar, tendo em conta a tabela acima: ");
+
+            if (!int.TryParse(Console.ReadLine(), out optionTransporte))
+            {
+                Console.WriteLine("Valor inválido para o tipo de transporte. Viatura não adicionada.");
+                return;
+            }
+
+            Console.WriteLine("Nova Marca: ");
+            string marca = Console.ReadLine();
+            Console.WriteLine("Novo Modelo: ");
+            string modelo = Console.ReadLine();
+            Console.WriteLine("Nova Matrícula: ");
+            string matricula = Console.ReadLine();
+            Console.WriteLine("Novo Custo por Km: ");
+            double custoPorKm;
+            if (!double.TryParse(Console.ReadLine(), out custoPorKm))
+            {
+                Console.WriteLine("Valor inválido para custo por Km. Viatura não adicionada.");
+                return;
+            }
+            Console.WriteLine("Novo Peso máximo(Kg): ");
+            double pesoMax;
+            if (!double.TryParse(Console.ReadLine(), out pesoMax))
+            {
+                Console.WriteLine("Valor inválido para peso máximo. Viatura não adicionada.");
+                return;
+            }
+            Console.WriteLine("Nova Altura máxima(M): ");
+            double alturaMax;
+            if (!double.TryParse(Console.ReadLine(), out alturaMax))
+            {
+                Console.WriteLine("Valor inválido para altura máxima. Viatura não adicionada.");
+                return;
+            }
+            Console.WriteLine("Nova Largura máxima(M): ");
+            double larguraMax;
+            if (!double.TryParse(Console.ReadLine(), out larguraMax))
+            {
+                Console.WriteLine("Valor inválido para largura máxima. Viatura não adicionada.");
+                return;
+            }
+            Console.WriteLine("Nova Profundidade máxima(M): ");
+            double profundidadeMax;
+            if (!double.TryParse(Console.ReadLine(), out profundidadeMax))
+            {
+                Console.WriteLine("Valor inválido para profundidade máxima. Viatura não adicionada.");
+                return;
+            }
+            //Tipo de Transporte Aquático
+            if (optionTransporte == 0)
+            {
+                Console.WriteLine("Novo Nome da embarcação: ");
+                string nomeEmbarcacao;
+                nomeEmbarcacao = Console.ReadLine();
+
+                Console.WriteLine("Novo Número de registo da embarcação: ");
+
+                int numeroRegistoEmbarcacao;
+
+                if (!int.TryParse(Console.ReadLine(), out numeroRegistoEmbarcacao))
                 {
-                    Console.WriteLine("Valor inválido para custo por Km. Viatura não atualizada.");
-                    return;
-                }
-                Console.WriteLine("Novo peso máximo(Kg): ");
-                double novoPesoMax;
-                if (!double.TryParse(Console.ReadLine(), out novoPesoMax))
-                {
-                    Console.WriteLine("Valor inválido para peso máximo. Viatura não atualizada.");
-                    return;
-                }
-                Console.WriteLine("Nova altura máxima(M): ");
-                double novaAlturaMax;
-                if (!double.TryParse(Console.ReadLine(), out novaAlturaMax))
-                {
-                    Console.WriteLine("Valor inválido para altura máxima. Viatura não atualizada.");
-                    return;
-                }
-                Console.WriteLine("Nova largura máxima(M): ");
-                double novaLarguraMax;
-                if (!double.TryParse(Console.ReadLine(), out novaLarguraMax))
-                {
-                    Console.WriteLine("Valor inválido para largura máxima. Viatura não atualizada.");
-                    return;
-                }
-                Console.WriteLine("Nova profundidade máxima(M): ");
-                double novaProfundidadeMax;
-                if (!double.TryParse(Console.ReadLine(), out novaProfundidadeMax))
-                {
-                    Console.WriteLine("Valor inválido para profundidade máxima. Viatura não atualizada.");
-                    return;
+                    Console.WriteLine("Numero de registo de embarcação inválido. Viatura não adicionada.");
                 }
 
-                // chama o método editarViatura na instância correspondente
-                viaturaEditar.editarViatura(novaMarca, novoModelo, novaMatricula, novoCustoPorKm,
-                    novoPesoMax, novaAlturaMax, novaLarguraMax, novaProfundidadeMax, novoTipoTransporte);
+                Console.WriteLine("Novo Tipo de embarcação (EX: Caravela, Navio, Bote etc...): ");
+                string tipoEmbarcacao;
+                tipoEmbarcacao = Console.ReadLine();
 
-                Console.WriteLine("Viatura atualizada com sucesso.");
+                Console.WriteLine("Novo Código da embarcação: ");
+                int codigoEmbarcacao;
+                if (!int.TryParse(Console.ReadLine(), out codigoEmbarcacao))
+                {
+                    Console.WriteLine("Código de embarcação inválido. Viatura não adicionada.");
+                }
+
+                Console.WriteLine("Nova Boca da embarcação(M): ");
+
+                double bocaEmbarcacao;
+                if (!double.TryParse(Console.ReadLine(), out bocaEmbarcacao))
+                {
+                    Console.WriteLine("Boca de embarcação inválida. Viatura não adicionada.");
+                }
+
+                Console.WriteLine("Novo Calado da embarcação(M)");
+
+                double caladoEmbarcacao;
+                if (!double.TryParse(Console.ReadLine(), out caladoEmbarcacao))
+                {
+                    Console.WriteLine("Calado de embarcação inválido. Viatura não adicionada.");
+                }
+
+                Console.WriteLine("Novo Comprimento da embarcação(M)");
+
+                double comprimentoEmbarcacao;
+                if (!double.TryParse(Console.ReadLine(), out comprimentoEmbarcacao))
+                {
+                    Console.WriteLine("Comprimento de embarcação inválido. Viatura não adicionada: ");
+                }
+
+                ViaturaAquatica viatura = new ViaturaAquatica(marca, modelo, matricula, custoPorKm, alturaMax, larguraMax, profundidadeMax, pesoMax, tipoTransportes[optionTransporte], numeroRegistoEmbarcacao, codigoEmbarcacao, bocaEmbarcacao, caladoEmbarcacao, comprimentoEmbarcacao);
+                viaturas.Add(viatura);
+            }
+            //Tipo de transporte Aereo
+            else if (optionTransporte == 1)
+            {
+                Console.WriteLine("Novo Número de registo da aeronave: ");
+
+                int codigoAeronave;
+                if (!int.TryParse(Console.ReadLine(), out codigoAeronave))
+                {
+                    Console.WriteLine("Número de registo de aeronave inválido. Viatura não adicionada: ");
+                }
+
+                Console.WriteLine("Nova Envergadura da aeronave(M): ");
+
+                double envergaduraAeronave;
+                if (!double.TryParse(Console.ReadLine(), out envergaduraAeronave))
+                {
+                    Console.WriteLine("Envergadura de aeronave inválida. Viatura não adicionada: ");
+                }
+
+
+                Console.WriteLine("Nova Altura da aeronave(M): ");
+
+                double alturaAeronave;
+                if (!double.TryParse(Console.ReadLine(), out alturaAeronave))
+                {
+                    Console.WriteLine("Altura de aeronave inválida. Viatura não adicionada: ");
+                }
+
+                Console.WriteLine("Novo Comprimento da aeronave (M): ");
+
+                double comprimentoAeronave;
+                if (!double.TryParse(Console.ReadLine(), out comprimentoAeronave))
+                {
+                    Console.WriteLine("Comprimento de aeronave inválido. Viatura não adicionada: ");
+                }
+
+                Console.WriteLine("Novo Tipo de Aeronave (EX: Jato, Avião, Helicóptero, etc..): ");
+                string tipoAeronave = Console.ReadLine();
+
+                Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax, tipoAeronave, tipoTransportes[optionTransporte]);
+                viaturas.Add(viatura);
+
+            }
+            //Transporte terrestre
+            else if (optionTransporte == 2)
+            {
+                Console.WriteLine("Novo Tipo de Viatura (EX: Bicicleta, Carro, Camião etc...): ");
+                string tipoViatura;
+                tipoViatura = Console.ReadLine();
+                Viatura viatura = new Viatura(marca, modelo, matricula, custoPorKm, pesoMax, alturaMax, larguraMax, profundidadeMax, tipoViatura, tipoTransportes[optionTransporte]);
+                viaturas.Add(viatura);
+                Console.WriteLine("Viatura adicionada com sucesso.");
             }
             else
             {
-                Console.WriteLine("Viatura não encontrada.");
+                Console.WriteLine("O tipo de transporte introduzido é inválido. Viatura não adicionada");
+                return;
             }
         }
 
