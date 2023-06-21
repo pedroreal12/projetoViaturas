@@ -364,7 +364,7 @@ namespace projetoViaturas
                     Console.WriteLine("Comprimento de aeronave inválido. Viatura não adicionada: ");
                 }
 
-                Console.WriteLine("Novo Tipo de Aeronave (EX: Jato, Avião, Helicóptero, etc..): ");
+                Console.WriteLine("Tipo de Aeronave (EX: Jato, Avião, Helicóptero, etc..): ");
                 string tipoAeronave = Console.ReadLine();
 
                 ViaturaAerea viatura = new ViaturaAerea(marca, modelo, matricula, custoPorKm, alturaAeronave, larguraMax, profundidadeMax, pesoMax, tipoAeronave, numeroRegistoAeronave, envergaduraAeronave, comprimentoAeronave);
